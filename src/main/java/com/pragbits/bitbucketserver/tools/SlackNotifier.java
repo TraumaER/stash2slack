@@ -1,4 +1,5 @@
 package com.pragbits.bitbucketserver.tools;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -13,15 +14,15 @@ import org.slf4j.LoggerFactory;
 
 public class SlackNotifier {
 
-    private final CloseableHttpClient httpClient = HttpClients.createSystem();
-    private static final Logger log = LoggerFactory.getLogger(SlackNotifier.class);
+	private final CloseableHttpClient httpClient = HttpClients.createSystem();
+	private static final Logger log = LoggerFactory.getLogger(SlackNotifier.class);
 
-    public  SlackNotifier() {
+	public SlackNotifier() {
 
-    }
+	}
 
-    public void SendSlackNotification(String targetUrl, String jsonString) {
-        try {
+	public void SendSlackNotification(String targetUrl, String jsonString) {
+		try {
             /*
             RequestConfig requestConfig = RequestConfig.custom()
                     .setConnectionRequestTimeout(15000)
@@ -29,27 +30,27 @@ public class SlackNotifier {
                     .setSocketTimeout(15000)
                     .build();
             */
-            HttpPost httpPost = new HttpPost(targetUrl);
-            //httpPost.setConfig(requestConfig);
+			HttpPost httpPost = new HttpPost(targetUrl);
+			//httpPost.setConfig(requestConfig);
 
-            log.debug("SlackNotifier targetUrl: " + targetUrl + ", jsonString" + jsonString);
+			log.debug("SlackNotifier targetUrl: " + targetUrl + ", jsonString" + jsonString);
 
-            httpPost.setEntity(new StringEntity(jsonString, ContentType.APPLICATION_JSON));
-            CloseableHttpResponse response = httpClient.execute(httpPost);
-            try {
-                if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-                    HttpEntity entity = response.getEntity();
-                    String responseString = EntityUtils.toString(entity, "UTF-8");
-                    log.error("#error during httpPost in SlackNotifier: " + responseString);
-                    log.error("\tstatus code: " + response.getStatusLine().getStatusCode());
-                    log.error("\tstatus reason: " + response.getStatusLine().getReasonPhrase());
-                    log.error("\tpayload string: " + jsonString);
-                }
-            } finally {
-                response.close();
-            }
-        } catch (Exception e) {
-            log.error("#error during http request execution in SlackNotifier: ", e);
-        }
-    }
+			httpPost.setEntity(new StringEntity(jsonString, ContentType.APPLICATION_JSON));
+			CloseableHttpResponse response = httpClient.execute(httpPost);
+			try {
+				if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+					HttpEntity entity = response.getEntity();
+					String responseString = EntityUtils.toString(entity, "UTF-8");
+					log.error("#error during httpPost in SlackNotifier: " + responseString);
+					log.error("\tstatus code: " + response.getStatusLine().getStatusCode());
+					log.error("\tstatus reason: " + response.getStatusLine().getReasonPhrase());
+					log.error("\tpayload string: " + jsonString);
+				}
+			} finally {
+				response.close();
+			}
+		} catch (Exception e) {
+			log.error("#error during http request execution in SlackNotifier: ", e);
+		}
+	}
 }

@@ -39,6 +39,20 @@ public class TestFixtures {
                                                               "\"author_icon\":\"\"}]," +
                                                         "\"icon_url\":\"Local_Icon_Url\"," +
                                                         "\"icon_emoji\":\":rocket:\"}";
+  public static final String PR_MASTER_CHANNEL_PAYLOAD = "{\"channel\":\"#bugfix_channel\"," +
+          "\"mrkdwn\":true," +
+          "\"link_names\":true," +
+          "\"attachments\":" +
+          "[{\"mrkdwn_in\":" +
+          "[\"pretext\",\"text\",\"title\",\"fields\",\"fallback\"]," +
+          "\"fields\":[]," +
+          "\"fallback\":\"unknown user opened pull request \\\"pull request TITLE\\\". \\u003chttps://bitbucket_url/pull_request|(open)\\u003e\"," +
+          "\"color\":\"#2267c4\"," +
+          "\"text\":\"opened pull request \\u003chttps://bitbucket_url/pull_request|#99999999999999: pull request TITLE\\u003e\"," +
+          "\"author_name\":\"unknown user\"," +
+          "\"author_icon\":\"\"}]," +
+          "\"icon_url\":\"Local_Icon_Url\"," +
+          "\"icon_emoji\":\":rocket:\"}";
 
   public static final String PR_OVERRIDE_SETTINGS_PAYLOAD = "{\"channel\":\"#local_channel\"," +
                                                         "\"mrkdwn\":true," +

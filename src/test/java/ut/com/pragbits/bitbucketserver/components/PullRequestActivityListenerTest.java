@@ -81,9 +81,9 @@ public class PullRequestActivityListenerTest {
 
     when(avatarService.getUrlForPerson(any(), any())).thenReturn("http://domain/avatarUrl.png");
 
-    when(pullRequestRefFrom.getDisplayId()).thenReturn("DisplayIdFrom123");
+    when(pullRequestRefFrom.getDisplayId()).thenReturn("refs/heads/bugfix/DisplayFromId");
     when(pullRequestRefFrom.getRepository()).thenReturn(repository);
-    when(pullRequestRefTo.getDisplayId()).thenReturn("DisplayIdTo456");
+    when(pullRequestRefTo.getDisplayId()).thenReturn("refs/heads/master");
     when(pullRequestRefTo.getRepository()).thenReturn(forkedRepository);
 
     when(applicationUser1.getDisplayName()).thenReturn("User Foo Bar");
@@ -179,13 +179,14 @@ public class PullRequestActivityListenerTest {
     when(slackSettings.isSlackNotificationsEnabled()).thenReturn(true);
     when(slackSettings.isSlackNotificationsOverrideEnabled()).thenReturn(true);
     when(slackSettings.isSlackNotificationsOpenedEnabled()).thenReturn(true);
-    when(slackSettings.getSlackChannelName()).thenReturn("master/.*->#master_channel,bugfix/.*->#bugfix_channel");
+    when(slackSettings.getSlackChannelName()).thenReturn("master/.*<-#master_channel,bugfix/.*->#bugfix_channel");
     when(pullRequestRefTo.getDisplayId()).thenReturn(TestFixtures.BUGFIX_REF_ID);
 
     PullRequestActivityListener listener = new PullRequestActivityListener(slackGlobalSettingsService, slackSettingsService, navBuilder, slackNotifier, avatarService);
     listener.NotifySlackChannel(event);
 
     verify(slackNotifier).SendSlackNotification(eq(TestFixtures.SLACK_LOCAL_HOOK_URL), eq(TestFixtures.PR_BUGFIX_CHANNEL_PAYLOAD));
+    verify(slackNotifier).SendSlackNotification(eq(TestFixtures.SLACK_LOCAL_HOOK_URL), eq(TestFixtures.PR_MASTER_CHANNEL_PAYLOAD));
   }
 
   @Test

@@ -1,36 +1,35 @@
 package com.pragbits.bitbucketserver.tools;
-import com.google.gson.annotations.*;
+
+import com.google.gson.annotations.SerializedName;
 
 public class SlackAttachmentField {
 
+	public String getTitle() {
+		return title;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public String getValue() {
+		return value;
+	}
 
-    public String getValue() {
-        return value;
-    }
+	public void setValue(String value) {
+		this.value = value;
+	}
 
-    public void setValue(String value) {
-        this.value = value;
-    }
+	public boolean isShort() {
+		return isShort;
+	}
 
+	public void setShort(boolean isShort) {
+		this.isShort = isShort;
+	}
 
-    public boolean isShort() {
-        return isShort;
-    }
-
-    public void setShort(boolean isShort) {
-        this.isShort = isShort;
-    }
-
-    private String title;
-    private String value;
-    @SerializedName("short")
-    private boolean isShort;
+	private String title;
+	private String value;
+	@SerializedName("short")
+	private boolean isShort;
 }
